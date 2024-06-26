@@ -6,12 +6,18 @@ For further Pyseer information refer to : https://pyseer.readthedocs.io/en/maste
 ## Prepare the input files
 
 We'll assume that all assemblies are on a folder, hereinafter referred to as "working_folder".
-* Pro Tip: When working with several files and it they have a binary clasificaition e.g. Positive/Negative
-  I recommed to rename according each sample according to its classification, that will help to keep a track 
+* PRO TIP:
+When working with several files and if they have a binary clasificaition e.g. Positive/Negative, I recommed to rename each sample according to its classification, that will help to keep a good track.
+Additionally, add to the name a unique pattern or a numeric series for example, either all the positive samples has the word "Pos" on its name or all positive samples goes from 1 to X.
+The same should be done for the negative samples.
+
+Create a list that contains the segregates the names of each group sample.
+```
+```
+
 First, a "phenotype" file is requiere. This is a tab separeted file with two columns, header requiere.
 
-```
-```
+
 ## Variant (unitigs) Calling
 ```
 ```
