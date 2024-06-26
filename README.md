@@ -6,10 +6,10 @@ For further Pyseer information refer to : https://pyseer.readthedocs.io/en/maste
 ## Prepare the input files
 ```
 ```
-### Variant (unitigs) Calling
+## Variant (unitigs) Calling
 ```
 ```
-### Desining an Kinship Matrix 
+## Desining an Kinship Matrix 
 ```
 ```
 ## Performing and linear mixed model on Pysser.
