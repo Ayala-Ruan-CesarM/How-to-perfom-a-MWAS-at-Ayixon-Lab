@@ -46,9 +46,9 @@ A file that has the absolute path of each group sample or a evenly distributed f
 sed "s|^|$PWD/|" Positive_samples.list > Positive_samples_unitigs_input.txt
 sed "s|^|$PWD/|" Negative_samples.list > Negative_sampless_unitigs_input.txt
 ```
-## Variant (unitigs) Calling with unitig-caller
+## Variant (unitigs) Calling with [unitig-caller](https://github.com/bacpop/unitig-caller)  
 ```
-https://github.com/bacpop/unitig-caller 
+ 
 ```
 ## Desining an Kinship Matrix 
 ```
