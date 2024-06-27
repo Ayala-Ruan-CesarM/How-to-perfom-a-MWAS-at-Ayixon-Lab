@@ -76,7 +76,33 @@ To fix the file in one line:
 sed -i -e 's/|$//' -e 's/| //2' Positive_Negative_unitigs.pyseer ; grep -v -E '\|\s*$' Positive_Negative_unitigs.pyseer > temp_file && mv temp_file Positive_Negative_unitigs.pyseer
 ```
 ## Desining a Kinship Matrix 
+I explored three ways to include the relashionship bewteen metagenomic samples in the LMM those are:  
+*Phylogenetic:  
 
+```
+bash /mnt/f/Cesar_Tesis/MGWAS_Textile/JolyTree2.0/JolyTree/JolyTree.sh -i $working_dir -b MetagenomeTree -t 30
+```
+The "-s" is set automatically as it is calculated as the  proportion (up to 1.00) of the average genome size  
+but in my observatiosn the higher the better.  
+To keep a track of the current sketch size the output print to the screen can be written to a file like this:  
+```
+{ /usr/bin/time -v /mnt/f/Cesar_Tesis/MGWAS_Textile/JolyTree2.0/JolyTree/JolyTree.sh -i $working_dir -b MetagenomeTree -t 30 ; } > Screen_Output.txt 2>&1
+```
+```
+grep "sketch size:" Screen_Output.txt 2>&1
+```
+The output number is the actual sketch size used by JolyTree which can be increase.  
+Now, the output .nwk from Jolytree is the input to create the phylogenetic matrix.  
+```
+
+```
+
+
+sketch size:
+*Distance Metric  
+```
+```
+*Genetic   
 ```
 ```
 ## Performing and linear mixed model on Pysser.
