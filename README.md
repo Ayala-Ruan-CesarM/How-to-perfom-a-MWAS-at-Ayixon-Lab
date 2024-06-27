@@ -53,7 +53,6 @@ Therefore we are going to use the --call and --query options as follows:
 unitig-caller --call --refs Positive_samples_unitigs_input.txt --pyseer --threads 4 --out Positive_unitigs
 ```
 The output file contains all the unitigs present only in the samples indicated by the --refs option.  
-
 The .pyseer extension is added by default.  
 
 
