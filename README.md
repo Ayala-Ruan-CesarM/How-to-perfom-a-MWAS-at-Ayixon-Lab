@@ -46,9 +46,19 @@ A file that has the absolute path of each group sample or a evenly distributed f
 sed "s|^|$PWD/|" Positive_samples.list > Positive_samples_unitigs_input.txt
 sed "s|^|$PWD/|" Negative_samples.list > Negative_sampless_unitigs_input.txt
 ```
-## Variant (unitigs) Calling with [unitig-caller](https://github.com/bacpop/unitig-caller)  
+## Variant (unitigs) Callin 
+We are going to assume the RAM constraints scenario, for further information visit [unitig-caller](https://github.com/bacpop/unitig-caller)  
+Therefore we are going to use the --call and --query options as follows:
 ```
- 
+unitig-caller --call --refs Positive_samples_unitigs_input.txt --pyseer --threads 4 --out Positive_unitigs
+```
+The output file contains all the unitigs present only in the samples indicated by the --refs option.  
+
+The .pyseer extension is added by default.  
+
+
+```
+unitig-caller --query --ref refsneg.txt --unitigs unitigs_sep/FlagPos.pyseer --pyseer --rtab --threads 4 --out unitigs_sep/Flg_PosOvNeg
 ```
 ## Desining an Kinship Matrix 
 ```
