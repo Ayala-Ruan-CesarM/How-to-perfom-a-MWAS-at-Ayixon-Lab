@@ -19,10 +19,11 @@ ls *Neg* > Negative_samples.list
 ```
 
 First, a "phenotype" file is requiere. This is a tab separeted file with two columns, header requiere.
+When working with a continuos phenotypes the Phenotype.pheno file is still requiere but the second column is now numerical
 ```
 # Add binary outcome to samples
 awk '{print $0"\t"1}' Positive_samples.list > Positive.temp
-awk '{print $0"\t"1}' Negative_samples.list > Negative.temp
+awk '{print $0"\t"0}' Negative_samples.list > Negative.temp
 
 # Concatenate and add header (Sample and Phenotype) customizable. 
 echo -e "Sample\tPhenotype" | cat - Positive.temp Negative.temp > Phenotype.pheno
@@ -31,8 +32,13 @@ echo -e "Sample\tPhenotype" | cat - Positive.temp Negative.temp > Phenotype.phen
 rm -f *.temp
 ```
 
-Second, a variant file calling is requiere.
+Second, a variant file calling is requiere. This file is used to optain the unitigs
+```
+# If no RAM constraints are met:
+ls -d -1 $PWD/*.fasta > Unitigs_input.txt
+# Otherwise, the solution I found to this problem was to generate the unitigs in batches :
 
+```
 
 awk '{print $0"\t"1}'
 echo -e "Filename\tColumn" | cat - temp.list
