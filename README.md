@@ -28,6 +28,9 @@ awk '{print $0"\t"0}' Negative_samples.list > Negative.temp
 # Concatenate and add header (Sample and Phenotype) customizable. 
 echo -e "Sample\tPhenotype" | cat - Positive.temp Negative.temp > Phenotype.pheno
 
+# Remove the extension from the .pheno file
+sed s'/.fasta//'g
+
 # Clean up
 rm -f *.temp
 ```
@@ -54,12 +57,24 @@ unitig-caller --call --refs Positive_samples_unitigs_input.txt --pyseer --thread
 ```
 The output file contains all the unitigs present only in the samples indicated by the --refs option.  
 The .pyseer extension is added by default.  
-
-
+Now, let's querry those unitigs onto the remaining samples:  
 ```
-unitig-caller --query --ref refsneg.txt --unitigs unitigs_sep/FlagPos.pyseer --pyseer --rtab --threads 4 --out unitigs_sep/Flg_PosOvNeg
+unitig-caller --query --ref Negative_sampless_unitigs_input.txt --unitigs Positive_unitigs.pyseer --pyseer --threads 4 --out Positive_Negative_unitigs
 ```
-## Desining an Kinship Matrix 
+This time the output file contains the unitigs from the Positive samples that are found in the negative samples.  
+However, as unitig-caller was not designed to run in batches, a few lines in the file are corrupt and needs to be removed.  
+This bug was catched while running Pyseer as it prints to screen unitigs that
+The correct format of each unitig line must be:  
+> ATGACATGACATGACATGACATGACATGACT | Sample_1:1 Sample_2:1 Sample_3:1 Sample_X:1 
+It is highly advise to create a back-up file and to keep a count of the number of lines in both the original and corrected file.  
+```
+cp Positive_Negative_unitigs.pyseer Positive_Negative_unitigs_backup.pyseer ; gzip -v -9 Positive_Negative_unitigs_backup.pyseer
+```
+To fix the file in one line:  
+```
+sed -i -e 's/|$//' -e 's/| //2' Positive_Negative_unitigs.pyseer ; grep -v -E '\|\s*$' Positive_Negative_unitigs.pyseer > temp_file && mv temp_file Positive_Negative_unitigs.pyseer
+```
+## Desining a Kinship Matrix 
 ```
 ```
 ## Performing and linear mixed model on Pysser.
