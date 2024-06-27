@@ -76,6 +76,7 @@ To fix the file in one line:
 sed -i -e 's/|$//' -e 's/| //2' Positive_Negative_unitigs.pyseer ; grep -v -E '\|\s*$' Positive_Negative_unitigs.pyseer > temp_file && mv temp_file Positive_Negative_unitigs.pyseer
 ```
 ## Desining a Kinship Matrix 
+
 ```
 ```
 ## Performing and linear mixed model on Pysser.
@@ -90,7 +91,8 @@ sed -i -e 's/|$//' -e 's/| //2' Positive_Negative_unitigs.pyseer ; grep -v -E '\
 
 # References
 Lees, John A., Galardini, M., et al. pyseer: a comprehensive tool for microbial pangenome-wide association studies. 
-Bioinformatics 34:4310–4312 (2018). doi:10.1093/bioinformatics/bty539 
+Bioinformatics 34:4310–4312 (2018). doi:10.1093/bioinformatics/bty539  
+
 Holley G., Melsted, P. Bifrost – Highly parallel construction and indexing of colored and compacted de Bruijn graphs. 
 bioRxiv 695338 (2019). doi: https://doi.org/10.1101/695338 
 
