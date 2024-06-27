@@ -3,7 +3,7 @@ This repository intens to serve as a blueprint to perform a microbiome-wide asso
 The main software useded is Pyseer (Lees et al., 2017), how ever others are also used, if not mentioned all are is installed on $PATH.
 For further Pyseer information refer to : https://pyseer.readthedocs.io/en/master/tutorial.html 
 
-## Prepare the input files
+## Prepare input files
 
 We'll assume that all assemblies are on a folder, hereinafter referred to as "working_folder".
 * PRO TIP:
@@ -33,18 +33,22 @@ rm -f *.temp
 ```
 
 Second, a variant file calling is requiere. This file is used to optain the unitigs
+If no RAM constraints are met:
 ```
-# If no RAM constraints are met:
 ls -d -1 $PWD/*.fasta > Unitigs_input.txt
-# Otherwise, the solution I found to this problem was to generate the unitigs in batches :
-
 ```
-
-awk '{print $0"\t"1}'
-echo -e "Filename\tColumn" | cat - temp.list
-
-## Variant (unitigs) Calling
+¿How to know that apriori? 
+If your dataset has more than 40 GB of information... don't even bother. 
+With a dataset of 20-30 Gb you are good to go. 
+Otherwise, the solution I found to this problem was to generate the unitigs in batches for that you'll need:
+A file that has the absolute path of each group sample or a evenly distributed files. 
 ```
+sed "s|^|$PWD/|" Positive_samples.list > Positive_samples_unitigs_input.txt
+sed "s|^|$PWD/|" Negative_samples.list > Negative_sampless_unitigs_input.txt
+```
+## Variant (unitigs) Calling with unitig-caller
+```
+https://github.com/bacpop/unitig-caller 
 ```
 ## Desining an Kinship Matrix 
 ```
@@ -52,8 +56,17 @@ echo -e "Filename\tColumn" | cat - temp.list
 ## Performing and linear mixed model on Pysser.
 ```
 ```
-## Variant annotation 
+## Variant annotation
+```
+```
+## De novo constructing a database reference
+```
+```
+
 # References
 Lees, John A., Galardini, M., et al. pyseer: a comprehensive tool for microbial pangenome-wide association studies. 
-Bioinformatics 34:4310–4312 (2018). doi:10.1093/bioinformatics/bty539. 
+Bioinformatics 34:4310–4312 (2018). doi:10.1093/bioinformatics/bty539 
+Holley G., Melsted, P. Bifrost – Highly parallel construction and indexing of colored and compacted de Bruijn graphs. 
+bioRxiv 695338 (2019). doi: https://doi.org/10.1101/695338 
+
 
