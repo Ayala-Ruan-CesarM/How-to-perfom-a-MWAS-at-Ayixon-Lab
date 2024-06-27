@@ -11,12 +11,31 @@ When working with several files and if they have a binary clasificaition e.g. Po
 Additionally, add to the name a unique pattern or a numeric series for example, either all the positive samples has the word "Pos" on its name or all positive samples goes from 1 to X.
 The same should be done for the negative samples.
 
-Create a list that contains the segregates the names of each group sample.
+Create a list that segregates the names of each group sample.
 ```
+cd $working_folder/
+ls *Pos* > Positive_samples.list
+ls *Neg* > Negative_samples.list
 ```
 
 First, a "phenotype" file is requiere. This is a tab separeted file with two columns, header requiere.
+```
+# Add binary outcome to samples
+awk '{print $0"\t"1}' Positive_samples.list > Positive.temp
+awk '{print $0"\t"1}' Negative_samples.list > Negative.temp
 
+# Concatenate and add header (Sample and Phenotype) customizable. 
+echo -e "Sample\tPhenotype" | cat - Positive.temp Negative.temp > Phenotype.pheno
+
+# Clean up
+rm -f *.temp
+```
+
+Second, a variant file calling is requiere.
+
+
+awk '{print $0"\t"1}'
+echo -e "Filename\tColumn" | cat - temp.list
 
 ## Variant (unitigs) Calling
 ```
