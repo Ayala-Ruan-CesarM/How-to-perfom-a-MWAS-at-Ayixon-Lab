@@ -65,7 +65,8 @@ This time the output file contains the unitigs from the Positive samples that ar
 However, as unitig-caller was not designed to run in batches, a few lines in the file are corrupt and needs to be removed.  
 This bug was catched while running Pyseer as it prints to screen unitigs that
 The correct format of each unitig line must be:  
-> ATGACATGACATGACATGACATGACATGACT | Sample_1:1 Sample_2:1 Sample_3:1 Sample_X:1 
+> ATGACATGACATGACATGACATGACATGACT | Sample_1:1 Sample_2:1 Sample_3:1 Sample_X:1
+
 It is highly advise to create a back-up file and to keep a count of the number of lines in both the original and corrected file.  
 ```
 cp Positive_Negative_unitigs.pyseer Positive_Negative_unitigs_backup.pyseer ; gzip -v -9 Positive_Negative_unitigs_backup.pyseer
