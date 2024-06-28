@@ -92,18 +92,22 @@ To keep a track of the current sketch size the output print to the screen can be
 grep "sketch size:" Screen_Output.txt 2>&1
 ```
 The output number is the actual sketch size used by JolyTree which can be increase.  
-Now, the output .nwk from Jolytree is the input to create the phylogenetic matrix.  
+Now, the MetagenomeTree.nwk output from Jolytree is the input to create the phylogenetic matrix with Pyseer script.  
+```
+python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/phylogeny_distance.py --lmm MetagenomeTree.nwk > Phylogeny_similarity_matrix.tsv
 ```
 
+*Genotype matrix:  
+For this will need calculate a design matrix of variant presence absence to calculate the kinship matrix.  
+Which can be calcualted from the unitigs file or a gene presence absence. However, high attención is requiere in order
+to avoid "dilution" phenomena.  
+```
+```
+v}similarity_pyseer --vcf core_gene_snps.vcf sample_list.txt > genotype_kinship.tsv
+*Distance Metric:    
+You will need a ecological beta diversity metric with size NxN 
 ```
 
-
-sketch size:
-*Distance Metric  
-```
-```
-*Genetic   
-```
 ```
 ## Performing and linear mixed model on Pysser.
 ```
