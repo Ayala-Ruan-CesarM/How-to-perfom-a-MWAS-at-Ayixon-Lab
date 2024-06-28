@@ -96,7 +96,10 @@ Now, the MetagenomeTree.nwk output from Jolytree is the input to create the phyl
 ```
 python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/phylogeny_distance.py --lmm MetagenomeTree.nwk > Phylogeny_similarity_matrix.tsv
 ```
-
+```
+# Remove the extension from the similarity matrix file
+sed -i s'/.fasta//'g Phylogeny_similarity_matrix.tsv
+```
 *Genotype matrix:  
 For this will need calculate a design matrix of variant presence absence to calculate the kinship matrix.  
 Which can be calcualted from the unitigs file or a gene presence absence. However, high attención is requiere in order
