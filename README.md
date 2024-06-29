@@ -49,7 +49,7 @@ A file that has the absolute path of each group sample or a evenly distributed f
 sed "s|^|$PWD/|" Positive_samples.list > Positive_samples_unitigs_input.txt
 sed "s|^|$PWD/|" Negative_samples.list > Negative_sampless_unitigs_input.txt
 ```
-## Variant (unitigs) Callin 
+## Variant (unitigs) Calling
 We are going to assume the RAM constraints scenario, for further information visit [unitig-caller](https://github.com/bacpop/unitig-caller)  
 Therefore we are going to use the --call and --query options as follows:
 ```
@@ -102,16 +102,20 @@ sed -i s'/.fasta//'g Phylogeny_similarity_matrix.tsv
 ```
 *Genotype matrix:  
 For this will need calculate a design matrix of variant presence absence to calculate the kinship matrix.  
-Which can be calcualted from the unitigs file or a gene presence absence. However, high attención is requiere in order
-to avoid "dilution" phenomena.  
+Which can be calcualted from the unitigs file or a gene presence absence (rtab) or vcf file. However, high attención is requiere in order
+to avoid "dilution" phenomena. That is exclute the genetic variants used to create Genotype matrix from the association model.  
+We'll use a python script form Pyseer. 
+```
+awk '{print $1}' Phenotype.pheno > sample_list.txt
 ```
 ```
-v}similarity_pyseer --vcf core_gene_snps.vcf sample_list.txt > genotype_kinship.tsv
+similarity_pyseer --kmers Positive_Negative_unitigs.pyseer sample_list.txt > Genotype_kinship.tsv
+```
 *Distance Metric:    
-You will need a ecological beta diversity metric with size NxN 
-```
-
-```
+You will need a ecological beta diversity metric with size NxN and the R package "MiRKAT".  
+The script Generar_KernelMatrix_fromBray.R from this project (auxiliary scripts) [https://github.com/Ayala-Ruan-CesarM/Dye_MWAS_Aux_Scripts] is need it.  
+The execution is stated in that repository.  
+From my project this strategy was the most promising. However, that doesn't imply that's the best for your data.
 ## Performing and linear mixed model on Pysser.
 ```
 ```
