@@ -118,20 +118,22 @@ The execution is stated in that repository.
 From my project this strategy was the most promising. However, that doesn't imply that's the best for your data.
 ## Performing and linear mixed model on Pysser.
 So far up to this point we create the three inputs requiere for Pyseer.  
-Phenotype file: Phenotype.pheno  
-Variant file: Positive_Negative_unitigs.pyseer  
-Kinship matrix: Similarity_matrix.tsv  
+**Phenotype file**: Phenotype.pheno  
+**Variant file**: Positive_Negative_unitigs.pyseer  
+**Kinship matrix**: Similarity_matrix.tsv  
 Now, we are set to perform a association test on the data as follwos:
 ```
 pyseer --lmm --phenotypes Phenotype.pheno --kmers Positive_Negative_unitigs.pyseer --uncompressed \
 --save-lmm model.npz --similarity Similarity_matrix.tsv --covariates Covariates_file.tsv \
---use-covariates 2 3 6q 7q 8q --output-patterns Kmer_patterns.txt --cpu 30 > Association_Result_kmers.txt
+--use-covariates 2 3 6q 7q 8q --print-samples --output-patterns Kmer_patterns.txt --cpu 30 > Association_Result_kmers.txt
 ```
 * TIP: The "--save-lmm" option is used to save to a .npz file the deconstruction of the similarity matrix.
 In subsequent runs the model is load with the option "--loadl-lmm" and the "--similarity" option is no longer required.
 
 In order to include covariates on to the associaiton model a tab separeted file is required. The first column contains the Sample name as in the phenotype file.  
-The other columns (with header) contains the information. Pyseer accepts both quantitative and qualitative covariates. The "--use-covariates" option tell Pyseer whih covariate use according to this column position. If the covariate is quantitative the "q" letter is requiered.  
+The other columns (with header) contains the information. Pyseer accepts both quantitative and qualitative covariates. 
+The "--use-covariates" option tells Pyseer whih covariate use according to this column position. If the covariate is quantitative the "q" letter is requiered.  
+The "--print-samples" adds to the "Association_Result_kmers.txt" file a column indicating in which sample each variant is and isn't.
 ## Variant annotation
 ```
 ```
