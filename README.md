@@ -117,8 +117,22 @@ The script Generar_KernelMatrix_fromBray.R from this project [auxiliary scripts]
 The execution is stated in that repository.  
 From my project this strategy was the most promising. However, that doesn't imply that's the best for your data.
 ## Performing and linear mixed model on Pysser.
+So far up to this point we create the three inputs requiere for Pyseer.  
+Phenotype file: Phenotype.pheno  
+Variant file: Positive_Negative_unitigs.pyseer  
+Kinship matrix: Similarity_matrix.tsv  
+In order to include covariates on to the associaiton model a tab separeted file is require. This is a tab separeted file in which the first column
+contains the Sample name as in the phenotype file. The other columns (with header) contains the information. Pyseer accepts both quantitative and qualitative covariates.  
+Now, we are set to perform a association test on the data as follwos:
 ```
+pyseer --lmm --phenotypes Phenotype.pheno --kmers Positive_Negative_unitigs.pyseer --uncompressed --save-lmm model.npz --similarity Similarity_matrix.tsv --covariates Covariates_file.tsv --use-covariates 2 3 4q 5q 6q 7q 8q 9q 11 12q 13q 14q 15q --output-patterns Kmer_patterns.txt --cpu 30 > Association_Result_kmers.txt
 ```
+``` 
+pyseer --lmm --phenotypes $phenotypes --kmers $unitigs --uncompressed --save-lmm $output_folder/$model_sep.npz \
+--similarity $phylogeny --covariates $covariates --use-covariates 2 3 4q 5q 6q 7q 8q 9q 11 12q 13q 14q 15q \
+--output-patterns $run1/Kmer_patterns.txt --cpu 30 > $run1/Tex_kmers_def.txt
+```
+
 ## Variant annotation
 ```
 ```
