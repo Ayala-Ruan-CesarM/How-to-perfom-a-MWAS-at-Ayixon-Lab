@@ -123,14 +123,15 @@ Variant file: Positive_Negative_unitigs.pyseer
 Kinship matrix: Similarity_matrix.tsv  
 Now, we are set to perform a association test on the data as follwos:
 ```
-pyseer --lmm --phenotypes Phenotype.pheno --kmers Positive_Negative_unitigs.pyseer --uncompressed --save-lmm model.npz --similarity Similarity_matrix.tsv \
---covariates Covariates_file.tsv --use-covariates 2 3 4q 5q 6q 7q 8q 9q 11 12q --output-patterns Kmer_patterns.txt --cpu 30 > Association_Result_kmers.txt
+pyseer --lmm --phenotypes Phenotype.pheno --kmers Positive_Negative_unitigs.pyseer --uncompressed \
+--save-lmm model.npz --similarity Similarity_matrix.tsv --covariates Covariates_file.tsv \
+--use-covariates 2 3 6q 7q 8q --output-patterns Kmer_patterns.txt --cpu 30 > Association_Result_kmers.txt
 ```
 * TIP: The "--save-lmm" option is used to save to a .npz file the deconstruction of the similarity matrix.
-  In subsequent runs the model is load with the option "--loadl-lmm" and the "--similarity" option is no longer require.
-In order to include covariates on to the associaiton model a tab separeted file is required.  The first column contains the Sample name as in the phenotype file.  
-The other columns (with header) contains the information. Pyseer accepts both quantitative and qualitative covariates.  
-The "--use-covariates" option tell Pyseer whih covariate use according to this column position. If the covariate is quantitative the "q" letter is requiered.  
+In subsequent runs the model is load with the option "--loadl-lmm" and the "--similarity" option is no longer required.
+
+In order to include covariates on to the associaiton model a tab separeted file is required. The first column contains the Sample name as in the phenotype file.  
+The other columns (with header) contains the information. Pyseer accepts both quantitative and qualitative covariates. The "--use-covariates" option tell Pyseer whih covariate use according to this column position. If the covariate is quantitative the "q" letter is requiered.  
 ## Variant annotation
 ```
 ```
