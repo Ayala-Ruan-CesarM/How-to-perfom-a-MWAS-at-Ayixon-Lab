@@ -113,7 +113,7 @@ similarity_pyseer --kmers Positive_Negative_unitigs.pyseer sample_list.txt > Gen
 ```
 *Distance Metric:    
 You will need a ecological beta diversity metric with size NxN and the R package "MiRKAT".  
-The script Generar_KernelMatrix_fromBray.R from this project (auxiliary scripts) [https://github.com/Ayala-Ruan-CesarM/Dye_MWAS_Aux_Scripts] is need it.  
+The script Generar_KernelMatrix_fromBray.R from this project [auxiliary scripts](https://github.com/Ayala-Ruan-CesarM/Dye_MWAS_Aux_Scripts) is need it.  
 The execution is stated in that repository.  
 From my project this strategy was the most promising. However, that doesn't imply that's the best for your data.
 ## Performing and linear mixed model on Pysser.
