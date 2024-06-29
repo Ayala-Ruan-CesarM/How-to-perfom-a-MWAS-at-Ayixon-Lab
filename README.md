@@ -77,8 +77,8 @@ sed -i -e 's/|$//' -e 's/| //2' Positive_Negative_unitigs.pyseer ; grep -v -E '\
 ```
 ## Desining a Kinship Matrix 
 I explored three ways to include the relashionship bewteen metagenomic samples in the LMM those are:  
-*Phylogenetic:  
-
+* Phylogenetic:  
+Compute a phylogenetig tree from your samples.  
 ```
 bash /mnt/f/Cesar_Tesis/MGWAS_Textile/JolyTree2.0/JolyTree/JolyTree.sh -i $working_dir -b MetagenomeTree -t 30
 ```
@@ -100,7 +100,7 @@ python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/phylogeny_distanc
 # Remove the extension from the similarity matrix file
 sed -i s'/.fasta//'g Phylogeny_similarity_matrix.tsv
 ```
-*Genotype matrix:  
+* Genotype matrix:  
 For this will need calculate a design matrix of variant presence absence to calculate the kinship matrix.  
 Which can be calcualted from the unitigs file or a gene presence absence (rtab) or vcf file. However, high attención is requiere in order
 to avoid "dilution" phenomena. That is exclute the genetic variants used to create Genotype matrix from the association model.  
@@ -111,7 +111,7 @@ awk '{print $1}' Phenotype.pheno > sample_list.txt
 ```
 similarity_pyseer --kmers Positive_Negative_unitigs.pyseer sample_list.txt > Genotype_kinship.tsv
 ```
-*Distance Metric:    
+* Distance Metric:    
 You will need a ecological beta diversity metric with size NxN and the R package "MiRKAT".  
 The script Generar_KernelMatrix_fromBray.R from this project [auxiliary scripts](https://github.com/Ayala-Ruan-CesarM/Dye_MWAS_Aux_Scripts) is need it.  
 The execution is stated in that repository.  
