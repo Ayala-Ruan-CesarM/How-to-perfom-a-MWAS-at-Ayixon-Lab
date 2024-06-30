@@ -180,11 +180,13 @@ python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/Scripts_Analisis_Datos_Pyseer/Sc
 What "Script_to_sumarize.py" script does is to look whether a gene ID is repeated, if all but the "hits" column has the same values it merge both annotations and adds up the total number
 of hits. For example if there are two "rpoC_12" genes with 20 and 2 hits and all other statistics are the same, the rpoC_12 updates to 22 hits.  
 Finally, the scripts keeps the original file, the output keeps the name but add a "Sum" at the beggining of the file name "SumGene_hits.txt".  
+
 Sixth, filter by LRT-pvalue and generate the significant gene hits file:  
 ```
-awk '$3>1.51E-07' SumGene_hits.txt > Significant_Gene_Hits.txt
+awk '$3>1.51E-07 {print $0}' SumGene_hits.txt > Significant_Gene_Hits.txt
 ```
 
+## Annotationg hypothetical proteins with Uniref90 database on archezoa server
 
 
 ## De novo constructing a database reference
