@@ -214,12 +214,13 @@ damiond blastp --db /mnt/f/Cesar_Tesis/MGWAS_Textile/Diamond_uniref90DB/uniref90
 
 
 ## Enrich the annotation on the Significant_Gene_Hits.txt file
-Finally, we are going to use the Gene_Hits_Annotation_Args.py to combine this annotation on to the Significant_Gene_Hits.txt file.  
+Finally, we are going to use the Gene_Hits_Annotation_Args.py [auxiliary scripts](https://github.com/Ayala-Ruan-CesarM/Dye_MWAS_Aux_Scripts) to combine this annotation on to the Significant_Gene_Hits.txt file.  
 We need to execute the script from a fixed location (/mnt/f/Cesar_Tesis/Hits_To_UniRef_KOs/) as there are ten files with .split (approximately 8Gb) extensión that contains unirefIDs and it's annotation.
 Also all the KO IDs are also there (KOs.keg). Threfore, the full path for our input and ouput files are required.  
+The "-p" options is the pattern ID shared by all the hypothetical protein, by the fault is "TEXDB".   
 ```
 cd /mnt/f/Cesar_Tesis/Hits_To_UniRef_KOs/
-python Gene_Hits_Annotation_Args.py -i /$working_dir/Significant_Gene_Hits.txt -b /$working_dir/Annotated_proteins.tsv -k KOs.keg -o /$working_dir/Significant_Gene_Hits_Annotated.txt
+python Gene_Hits_Annotation_Args.py -i /$working_dir/Significant_Gene_Hits.txt -b /$working_dir/Annotated_proteins.tsv -k KOs.keg -o /$working_dir/Significant_Gene_Hits_Annotated.txt -p HYPO
 ```
 The final output should look somehting like this:  
 > TEXDB_S11_29835	2	8.655607726	0.488	0.488	0.2181	UniRef90_A0A3M5PEG9	UniRef90_A0A3M5PEG9 Uncharacterized protein  
