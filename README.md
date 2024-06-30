@@ -133,10 +133,60 @@ In subsequent runs the model is load with the option "--loadl-lmm" and the "--si
 In order to include covariates on to the associaiton model a tab separeted file is required. The first column contains the Sample name as in the phenotype file.  
 The other columns (with header) contains the information. Pyseer accepts both quantitative and qualitative covariates. 
 The "--use-covariates" option tells Pyseer whih covariate use according to this column position. If the covariate is quantitative the "q" letter is requiered.  
-The "--print-samples" adds to the "Association_Result_kmers.txt" file a column indicating in which sample each variant is and isn't.
-## Variant annotation
+The "--print-samples" adds to the "Association_Result_kmers.txt" file a column indicating in which sample each variant is and isn't.  
+
+To perform several Pyseer Runs increasing the "--min-af" in 0.05 each time, use the Multiple_pyseer_runs.sh script provided.  
+Copy the script to your working directory and add the path to the input files then execute: 
+´´´
+bash Multiple_pyseer_runs.sh
+´´´
+## Variant interpretation and annotation.
+This secction describes a basic interpretation of the "best" pyseer results according to what the previous QQ-plots tells and what I used in my project.  
+Additional information is in [Pyseer_tutorial.](https://pyseer.readthedocs.io/en/master/tutorial.html).  
+Here, I am using the full path in the archezoa server but the scripts can be also be found in [auxiliary scripts](https://github.com/Ayala-Ruan-CesarM/Dye_MWAS_Aux_Scripts).  
+
+First, get the significance threshold.  
+```
+python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/count_patterns.py Kmer_patterns.txt
+```
+Which will output something like:
+> Patterns:       331026
+> Threshold:      1.51E-07
+
+Second, assest the distribution of a the variant effect size in the result with a Volcano Plot.  
+Each point in the graph correspons to a variant and it's possition is located in the **X-axis** according to the effect size (Beta), in the **Y-axis** according to the LRT-pvalue
+and the **color** is the standard error of the effect size. This also help to assess the model fitting. 
+```
+python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/Scripts_Analisis_Datos_Pyseer/Volcano_plot.py -i Association_Result_kmers.txt -o Figure_name -t 1.51E-07
+```
+Third, as we are interested only in the genetic variants that actually are associated with the phenotype (Effect size > 0.0).  
+From the Association_Result_kmers.txt file, let's extract those variants and save it to another file.  
+```
+awk '$5>0.0 {print $0}' Association_Result_kmers.txt > Variants_Beta_Positive.txt
+```
+Fourth, unlike the official recommendation from pyseer documentation, we do the annotation over all the variants and latter over the gene hits the threshold is applied.  
+```
+python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/kmer_mapping/annotate_hits.py Variants_Beta_Positive.txt DB_Reference.txt Annotated_Variants_Veta_Positive.txt
+```
+The "annotate_hits.py" was modified to be able to use 30 threads.  
+The DB_Reference.txt is the same as describe in the original documentation.  
+Fifth, generation of the gene hits file. And summarizaiton.    
+```
+python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/summarise_annotations.py Annotated_Variants_Veta_Positive.txt > Gene_hits.txt
 ```
 ```
+python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/Scripts_Analisis_Datos_Pyseer/Script_to_sumarize.py Gene_hits.txt
+```
+What "Script_to_sumarize.py" script does is to look whether a gene ID is repeated, if all but the "hits" column has the same values it merge both annotations and adds up the total number
+of hits. For example if there are two "rpoC_12" genes with 20 and 2 hits and all other statistics are the same, the rpoC_12 updates to 22 hits.  
+Finally, the scripts keeps the original file, the output keeps the name but add a "Sum" at the beggining of the file name "SumGene_hits.txt".  
+Sixth, filter by LRT-pvalue and generate the significant gene hits file:  
+```
+awk '$3>1.51E-07' SumGene_hits.txt > Significant_Gene_Hits.txt
+```
+
+
+
 ## De novo constructing a database reference
 ```
 ```
