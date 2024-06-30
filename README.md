@@ -222,10 +222,10 @@ cd /mnt/f/Cesar_Tesis/Hits_To_UniRef_KOs/
 python Gene_Hits_Annotation_Args.py -i /$working_dir/Significant_Gene_Hits.txt -b /$working_dir/Annotated_proteins.tsv -k KOs.keg -o /$working_dir/Significant_Gene_Hits_Annotated.txt
 ```
 The final output should look somehting like this:  
-> TEXDB_S11_29835	2	8.655607726	0.488	0.488	0.2181	UniRef90_A0A3M5PEG9	UniRef90_A0A3M5PEG9 Uncharacterized protein 
-> TEXDB_S5_258199	3	9.514278574	0.226	0.226	0.0975	UniRef90_A0A7W8M979	UniRef90_A0A7W8M979 Acyl-CoA dehydrogenase 
-> erpA_3	1	11.1739252	0.214	0.214	0.164	K15724  erpA; iron-sulfur cluster insertion protein	
-> ndhH_4	1	8.314258261	0.238	0.238	0.119	K05579  ndhH; NAD(P)H-quinone oxidoreductase subunit H [EC:7.1.1.2]
+> TEXDB_S11_29835	2	8.655607726	0.488	0.488	0.2181	UniRef90_A0A3M5PEG9	UniRef90_A0A3M5PEG9 Uncharacterized protein  
+> TEXDB_S5_258199	3	9.514278574	0.226	0.226	0.0975	UniRef90_A0A7W8M979	UniRef90_A0A7W8M979 Acyl-CoA dehydrogenase   
+> erpA_3	1	11.1739252	0.214	0.214	0.164	K15724  erpA; iron-sulfur cluster insertion protein  	
+> ndhH_4	1	8.314258261	0.238	0.238	0.119	K05579  ndhH; NAD(P)H-quinone oxidoreductase subunit H [EC:7.1.1.2]  
 ## De novo constructing a database reference
 ```
 ```
