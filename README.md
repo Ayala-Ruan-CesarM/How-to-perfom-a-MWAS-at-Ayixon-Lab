@@ -233,8 +233,38 @@ and change the path in the script.
 mkdir -p Results # This named has to be placed in line 11 of the script before executing
 bash Add_KOs_UnirefIDs.sh
 ```
-## De novo constructing a database reference
+**THIS CONCLUDE THE EXECUTION OF PYSEER WITH THE LLM FOR BINARY PHENOTYPE**
+## De novo constructing a new database reference  
+If you want to annotate a new set of metagenomes and used it as refence for Pyseer activate metaprokka enviroment and used the following script once the variables are updated
+according to you.  
+
 ```
+conda activate metaprokka
+```
+Copy this to a executable file 
+```
+#!/bin/bash
+DATABASE_NAME=your_database_name  # Name of your database 
+DATABASE_DIR='path/to/database' # Full path to working directory or where to store the .fasta and .gff of the database
+PATTERN_NAME=NEWDB # change to your own
+i=1
+while read -r line; do
+    sample_name=$(basename "$line" .fasta)
+    metaprokka --locustag ${PATTERN_NAME}$i --prefix ${PATTERN_NAME}$i --outdir ${sample_name}$i --norrna --cpus 40 "$line"
+
+    if [-d "${sample_name}$i"]; then
+        cd "${sample_name}$i"/
+        grep "${PATTERN_NAME}$i" "${PATTERN_NAME}$i.gff" >> "$DATABASE_DIR"/"$DATABASE_NAME".gff
+        cp "${PATTERN_NAME}$i.ffn" "$DATABASE_DIR"/"${PATTERN_NAME}$i.ffn"
+        cd ..
+    fi
+
+    i=$((i+1))
+done < samples.list #
+
+cd "$DATABASE_DIR/"
+cat *.ffn > "$DATABASE_NAME".fasta
+rm -f *.ffn
 ```
 
 # References
