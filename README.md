@@ -137,9 +137,10 @@ The "--print-samples" adds to the "Association_Result_kmers.txt" file a column i
 
 To perform several Pyseer Runs increasing the "--min-af" in 0.05 each time, use the Multiple_pyseer_runs.sh script provided.  
 Copy the script to your working directory and add the path to the input files then execute: 
-´´´
+```
 bash Multiple_pyseer_runs.sh
-´´´
+```
+
 ## Variant interpretation and annotation.
 This secction describes a basic interpretation of the "best" pyseer results according to what the previous QQ-plots tells and what I used in my project.  
 Additional information is in [Pyseer_tutorial.](https://pyseer.readthedocs.io/en/master/tutorial.html).  
