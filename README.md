@@ -170,7 +170,10 @@ Fourth, unlike the official recommendation from pyseer documentation, we do the 
 python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/kmer_mapping/annotate_hits.py Variants_Beta_Positive.txt DB_Reference.txt Annotated_Variants_Veta_Positive.txt
 ```
 The "annotate_hits.py" was modified to be able to use 30 threads.  
-The DB_Reference.txt is the same as describe in the original documentation.  
+The DB_Reference.txt is the same as describe in the original documentation.
+* TIP: If you want to use the Textil Dye database as reference use the file place at: /mnt/f/Cesar_Tesis/MGWAS_Textile/Metagenoma_Completo/MapeoENS_Bowtie2/Databases/ReferenceD2.txt
+
+
 Fifth, generation of the gene hits file. And summarizaiton.    
 ```
 python /mnt/f/Cesar_Tesis/MGWAS_Textile/scripts/pyseer_scripts/summarise_annotations.py Annotated_Variants_Veta_Positive.txt > Gene_hits.txt
@@ -188,8 +191,41 @@ awk '$3>1.51E-07 {print $0}' SumGene_hits.txt > Significant_Gene_Hits.txt
 ```
 
 ## Annotationg hypothetical proteins with Uniref90 database on archezoa server
+From the Significant_Gene_Hits.txt we are going to extract the hypothetical proteins according to it's common pattern ID. This is dependent of the database used for the variant annotation.
+Let's assume that the initial annotation of the database or geneme used as reference was made with PROKKA. So we are going to assume that all the hypotethical proteins has the common pattern "HYPO" 
+and that the .faa (amino acid) file exist.  
+```
+awk '{print $1}' Significant_Gene_Hits.txt | grep "HYPO" > Protein_Ids.txt
+```
+Now, from the .faa file.  
+```
+seqkit grep -f Protein_Ids.txt -o Hypo_seqs_annotate.fasta Reference_Sequences.faa
+```
+Diamond will be used for the annotation with the build-in dmnd index.  
+The output format mandatory has to be tab separated in order to later script to work.  
+The querry sequence ID and the database hit ID in the first and second column respectely.  
+```
+damiond blastp --db /mnt/f/Cesar_Tesis/MGWAS_Textile/Diamond_uniref90DB/uniref90_diamond.dmnd \
+--very-sensitive --outfmt 6 --threads 30 --out Annotated_proteins.tsv \
+--query Reference_Sequences.faa
+```
+* TIP: Perform the annotation over all hypothetical proteins in your database.
+* If the Textile Dye database was used the protein annotated file is located at: /mnt/f/Cesar_Tesis/MGWAS_Textile/Metagenoma_Completo/MapeoENS_Bowtie2/Databases/PositiveMG_DB/DB2/Diamond_Annotation/DB2_allproteins.tsv
 
 
+## Enrich the annotation on the Significant_Gene_Hits.txt file
+Finally, we are going to use the Gene_Hits_Annotation_Args.py to combine this annotation on to the Significant_Gene_Hits.txt file.  
+We need to execute the script from a fixed location (/mnt/f/Cesar_Tesis/Hits_To_UniRef_KOs/) as there are ten files with .split (approximately 8Gb) extensión that contains unirefIDs and it's annotation.
+Also all the KO IDs are also there (KOs.keg). Threfore, the full path for our input and ouput files are required.  
+```
+cd /mnt/f/Cesar_Tesis/Hits_To_UniRef_KOs/
+python Gene_Hits_Annotation_Args.py -i /$working_dir/Significant_Gene_Hits.txt -b /$working_dir/Annotated_proteins.tsv -k KOs.keg -o /$working_dir/Significant_Gene_Hits_Annotated.txt
+```
+The final output should look somehting like this:  
+> TEXDB_S11_29835	2	8.655607726	0.488	0.488	0.2181	UniRef90_A0A3M5PEG9	UniRef90_A0A3M5PEG9 Uncharacterized protein 
+> TEXDB_S5_258199	3	9.514278574	0.226	0.226	0.0975	UniRef90_A0A7W8M979	UniRef90_A0A7W8M979 Acyl-CoA dehydrogenase 
+> erpA_3	1	11.1739252	0.214	0.214	0.164	K15724  erpA; iron-sulfur cluster insertion protein	
+> ndhH_4	1	8.314258261	0.238	0.238	0.119	K05579  ndhH; NAD(P)H-quinone oxidoreductase subunit H [EC:7.1.1.2]
 ## De novo constructing a database reference
 ```
 ```
