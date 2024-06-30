@@ -226,6 +226,13 @@ The final output should look somehting like this:
 > TEXDB_S5_258199	3	9.514278574	0.226	0.226	0.0975	UniRef90_A0A7W8M979	UniRef90_A0A7W8M979 Acyl-CoA dehydrogenase   
 > erpA_3	1	11.1739252	0.214	0.214	0.164	K15724  erpA; iron-sulfur cluster insertion protein  	
 > ndhH_4	1	8.314258261	0.238	0.238	0.119	K05579  ndhH; NAD(P)H-quinone oxidoreductase subunit H [EC:7.1.1.2]  
+
+The script Add_KOs_UnirefIDs.sh allows to iterate this process over multiple "Significant_Gene_Hits.txt" results that you want to annotated. You only need to create a ouput folder to store the new files
+and change the path in the script.
+```
+mkdir -p Results # This named has to be placed in line 11 of the script before executing
+bash Add_KOs_UnirefIDs.sh
+```
 ## De novo constructing a database reference
 ```
 ```
