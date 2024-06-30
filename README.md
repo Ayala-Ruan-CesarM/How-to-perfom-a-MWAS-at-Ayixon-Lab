@@ -190,7 +190,7 @@ Sixth, filter by LRT-pvalue and generate the significant gene hits file:
 awk '$3>1.51E-07 {print $0}' SumGene_hits.txt > Significant_Gene_Hits.txt
 ```
 
-## Annotationg hypothetical proteins with Uniref90 database on archezoa server
+## Annotation hypothetical proteins with Uniref90 database on archezoa server
 From the Significant_Gene_Hits.txt we are going to extract the hypothetical proteins according to it's common pattern ID. This is dependent of the database used for the variant annotation.
 Let's assume that the initial annotation of the database or geneme used as reference was made with PROKKA. So we are going to assume that all the hypotethical proteins has the common pattern "HYPO" 
 and that the .faa (amino acid) file exist.  
